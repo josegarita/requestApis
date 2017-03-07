@@ -1,4 +1,3 @@
-require "sinatra"
 require "digest/sha1"
 
 
