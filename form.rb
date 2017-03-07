@@ -4,6 +4,7 @@ require "digest/sha1"
 
 listaCorreos = []
 requestHechos = []
+# arma el home
 get '/' do
 '<form method="POST" action="/test">
   <p>Your email:<input type="text" name="name"></p>
@@ -16,13 +17,14 @@ get '/' do
   <input type="submit">
 </form>'
 end
-
+#Solicita la tabla de los request hechos
 
 post '/verTabla'do
 	tablaRequest(listaCorreos)
 
 end
 
+# verifica los user y los api keys, verifica si no existe el correo si no entonces verfica el api y le hace match
 post '/test' do
 	correo = params[:name] 
 	api = params[:api] 
@@ -59,12 +61,13 @@ post '/test' do
 	end
 	#api("#{params[:name]}")
   end
-  
+ 
+# genera api de acuerdo a sha1 y largo de 33 caracteres 
 def api(correo, length = 33)
 	return  Digest::SHA1.hexdigest(correo.to_s)[1..length]
 end
 
-
+# arma la lista de repetidos y los cuenta
 def contarLista(lista)
 	listaNue= lista.split(' ')
 	
@@ -83,7 +86,7 @@ def contarLista(lista)
 	
 	
 end
-
+# arma la tabla de requests hechos
 def tablaRequest(lista)
 	imprimir = '<table style="width:45%">
 			  <tr>
